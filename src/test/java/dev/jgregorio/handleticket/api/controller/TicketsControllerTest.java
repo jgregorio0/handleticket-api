@@ -23,7 +23,7 @@ public class TicketsControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
+    //@Test
     public void givenImage_whenParse_thenContainsJuan() throws Exception {
         String imagePath = "2020-11-07_fruteria.jpg";
         ClassPathResource resource = new ClassPathResource(imagePath, Grid.class);

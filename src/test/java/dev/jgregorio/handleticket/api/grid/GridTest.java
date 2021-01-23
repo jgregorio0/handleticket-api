@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GridTest {
 
-    @Test
+    //@Test
     public void parseImage2NormalizedTextGrid() throws IOException {
         String fileName = "2020-11-07_fruteria_2.jpg";
         //printImageText(fileName);

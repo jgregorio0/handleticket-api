@@ -1,0 +1,6 @@
+FROM openjdk:8-jdk-alpine
+
+COPY hadleticket-api.jar app.jar
+COPY application.properties app.properties
+
+ENTRYPOINT ["java","-jar","/app.jar", "--spring.config.location=/app.properties"]
