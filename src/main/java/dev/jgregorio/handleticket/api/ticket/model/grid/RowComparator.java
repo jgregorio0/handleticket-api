@@ -1,6 +1,6 @@
-package dev.jgregorio.handleticket.api.util.grid;
+package dev.jgregorio.handleticket.api.ticket.model.grid;
 
-import dev.jgregorio.handleticket.api.model.NormalizedText;
+import dev.jgregorio.handleticket.api.ticket.model.NormalizedText;
 
 import java.util.Comparator;
 

@@ -1,7 +1,6 @@
 package dev.jgregorio.handleticket.api.controller;
 
-import dev.jgregorio.handleticket.api.util.grid.Grid;
-import org.junit.jupiter.api.Test;
+import dev.jgregorio.handleticket.api.ticket.model.grid.Grid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;

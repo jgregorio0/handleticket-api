@@ -1,4 +1,4 @@
-package dev.jgregorio.handleticket.api.model;
+package dev.jgregorio.handleticket.api.ticket.model;
 
 import com.google.cloud.vision.v1.EntityAnnotation;
 import com.google.cloud.vision.v1.Vertex;

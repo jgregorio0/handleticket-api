@@ -1,10 +1,9 @@
 package dev.jgregorio.handleticket.api.grid;
 
 import com.google.cloud.vision.v1.EntityAnnotation;
-import dev.jgregorio.handleticket.api.service.GoogleVisionService;
-import dev.jgregorio.handleticket.api.util.ResourceUtil;
-import dev.jgregorio.handleticket.api.util.grid.Grid;
-import org.junit.jupiter.api.Test;
+import dev.jgregorio.handleticket.api.ticket.service.GoogleVisionService;
+import dev.jgregorio.handleticket.api.ticket.util.ResourceUtil;
+import dev.jgregorio.handleticket.api.ticket.model.grid.Grid;
 
 import java.io.IOException;
 import java.util.List;

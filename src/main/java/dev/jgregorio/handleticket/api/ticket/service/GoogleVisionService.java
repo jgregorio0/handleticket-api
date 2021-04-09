@@ -1,4 +1,4 @@
-package dev.jgregorio.handleticket.api.service;
+package dev.jgregorio.handleticket.api.ticket.service;
 
 import com.google.cloud.vision.v1.*;
 import com.google.cloud.vision.v1.Feature.Type;

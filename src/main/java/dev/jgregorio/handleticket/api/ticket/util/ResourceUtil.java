@@ -1,4 +1,4 @@
-package dev.jgregorio.handleticket.api.util;
+package dev.jgregorio.handleticket.api.ticket.util;
 
 public class ResourceUtil {
 

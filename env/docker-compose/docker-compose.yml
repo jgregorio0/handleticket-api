@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    container_name: postgres
+    #restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgresdb
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    #restart: always
+    ports:
+      - 8081:8080
+
+  app:
+    image: handleticket-api
+    container_name: htapi
+    #restart: unless-stopped
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgresdb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update

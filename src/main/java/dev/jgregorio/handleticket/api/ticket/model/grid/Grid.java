@@ -1,7 +1,7 @@
-package dev.jgregorio.handleticket.api.util.grid;
+package dev.jgregorio.handleticket.api.ticket.model.grid;
 
 import com.google.cloud.vision.v1.EntityAnnotation;
-import dev.jgregorio.handleticket.api.model.NormalizedText;
+import dev.jgregorio.handleticket.api.ticket.model.NormalizedText;
 
 import java.util.ArrayList;
 import java.util.Collections;

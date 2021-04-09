@@ -43,14 +43,59 @@ export GOOGLE_APPLICATION_CREDENTIALS="[PATH]"
 
 ## Build docker iamge
 ```
-sudo docker build -t handleticket-api .
+sudo docker build -t handleticket-api:1.0 .
 ```
 
 ## Run docker con google api credentials
 ```
 $(sudo docker run -d --name handleticket-api \
--p 8080:80 \
+-p 8080:8080 \
 -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/googleAppCredentials.json \
 -v /home/jgregorio/projects/handleticket-api/.keys/googleApiCredentials.json:/tmp/keys/googleAppCredentials.json:ro \
 handleticket-api)
 ```
+
+## Deploy to Heroku
+1. Login 
+```
+heroku login
+```
+
+2. Create heroku app
+```
+heroku create handleticket-api
+https://handleticket-api.herokuapp.com/ | https://git.heroku.com/handleticket-api.git
+```
+
+3. Deploy master
+```
+git push heroku master
+```
+
+# Docker compose / Postgres & Adminer
+```
+cd env/docker
+sudo docker-compose up
+```
+
+## Adminer
+- postgreSQL
+- db
+- root
+- 1234
+- postgresdb
+
+# Run app dev
+1. application-dev.properties
+
+2. application-imp.properties
+
+3. run profile dev + debug 
+```
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=dev -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
+```
+
+4. remote connect for debugging
+
+# Postgres Database
+spring.jpa.database=POSTGRESQL
