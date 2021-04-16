@@ -74,7 +74,7 @@ git push heroku master
 
 # Docker compose / Postgres & Adminer
 ```
-cd env/docker
+cd env/docker-compose
 sudo docker-compose up
 ```
 
