@@ -6,16 +6,21 @@ import javax.persistence.*;
 @Table(name = "app_users")
 public class ApplicationUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "app_users_gen")
+    @SequenceGenerator(name = "app_users_gen", sequenceName = "app_users_seq_id")
+    @Column(name = "id", updatable = false, nullable = false)
     private long id;
+
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
 
     public long getId() {
         return id;
     }
 
-    @Column(name = "username", nullable = false)
     public String getUsername() {
         return username;
     }
@@ -24,7 +29,6 @@ public class ApplicationUser {
         this.username = username;
     }
 
-    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
