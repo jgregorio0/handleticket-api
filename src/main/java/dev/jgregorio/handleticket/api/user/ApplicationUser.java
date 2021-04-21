@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class ApplicationUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "app_users_gen")
-    @SequenceGenerator(name = "app_users_gen", sequenceName = "app_users_seq_id")
+    @SequenceGenerator(name = "app_users_gen", sequenceName = "app_users_seq_id", initialValue = 2, allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
     private long id;
 
@@ -16,6 +16,9 @@ public class ApplicationUser {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "enabled", nullable = false, columnDefinition = "default false")
+    private Boolean enabled;
 
     public long getId() {
         return id;
@@ -35,5 +38,13 @@ public class ApplicationUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }
