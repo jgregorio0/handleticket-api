@@ -11,7 +11,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dev.jgregorio.hadleticket</groupId>
-    <artifactId>hadleticket-api</artifactId>
+    <artifactId>handleticket-api</artifactId>
     <version>1.0</version>
     <name>hadleticket-api</name>
     <description>REST services for ticket project</description>

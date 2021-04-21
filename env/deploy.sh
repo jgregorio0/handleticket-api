@@ -2,7 +2,8 @@
 cd /home/jgregorio/projects/handleticket-api/env
 
 mvn -f ../pom.xml clean package
-cp target/hadleticket-api-1.0.jar ./docker-handleticket-api/hadleticket-api.jar
+cp ../target/handleticket-api-1.0.jar ./docker-handleticket-api/handleticket-api.jar
+
 
 sudo docker container ls -a
 sudo docker container rm htapi

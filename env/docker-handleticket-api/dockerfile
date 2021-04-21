@@ -1,6 +1,6 @@
 FROM koosiedemoer/netty-tcnative-alpine
 
-COPY hadleticket-api.jar app.jar
+COPY handleticket-api.jar app.jar
 COPY application.properties app.properties
 
 #RUN apk update && apk add bash && apk add nano
