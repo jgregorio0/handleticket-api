@@ -32,7 +32,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 // Set public requests
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, SecurityConstants.SIGNUP).permitAll()
+                // disable sign up
+                //.antMatchers(HttpMethod.POST, SecurityConstants.SIGNUP).permitAll()
                 // Set private requests
                 .anyRequest().authenticated()
                 // Add JWT token AuthEntication Filter
