@@ -2,13 +2,13 @@ package dev.jgregorio.handleticket.api.security;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.jgregorio.handleticket.api.user.ApplicationUser;
+import dev.jgregorio.handleticket.api.user.User;
+import dev.jgregorio.handleticket.api.user.UserDTO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -25,12 +25,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private String sk;
     private long expirationTime;
+    private String version;
+    private String loginPath;
     private AuthenticationManager authenticationManager;
+    private ObjectMapper objectMapper;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, ApplicationContext ctx) {
         this.authenticationManager = authenticationManager;
         this.sk = ctx.getEnvironment().getProperty("security.sk");
         this.expirationTime = ctx.getEnvironment().getProperty("security.expiration.time", Long.class);
+        this.version = ctx.getEnvironment().getProperty("security.version");
+        this.loginPath = ctx.getEnvironment().getProperty("security.login");
+        super.setFilterProcessesUrl("/" + this.version + this.loginPath);
+        this.objectMapper = ctx.getBean(ObjectMapper.class);
     }
 
     @Override
@@ -42,13 +49,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-            ApplicationUser creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), ApplicationUser.class);
+            UserDTO loginForm = new ObjectMapper()
+                    .readValue(req.getInputStream(), UserDTO.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            creds.getUsername(),
-                            creds.getPassword(),
+                            loginForm.getEmail(),
+                            loginForm.getPass(),
                             new ArrayList<>())
             );
         } catch (IOException e) {
@@ -61,10 +68,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
+        String username = ((User) auth.getPrincipal()).getUsername();
         String token = JWT.create()
-                .withSubject(((User) auth.getPrincipal()).getUsername())
+                .withSubject(username)
                 .withExpiresAt(new Date(System.currentTimeMillis() + expirationTime))
                 .sign(HMAC512(sk.getBytes()));
+        // add token to header
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        // add token and email to response
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(username);
+        userDTO.setToken(token);
+        String resStr = objectMapper.writeValueAsString(userDTO);
+        res.getWriter().write(resStr);
+        res.getWriter().flush();
     }
 }

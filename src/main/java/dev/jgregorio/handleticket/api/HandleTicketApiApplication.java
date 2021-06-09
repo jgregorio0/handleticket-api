@@ -11,9 +11,4 @@ public class HandleTicketApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HandleTicketApiApplication.class, args);
 	}
-
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 }

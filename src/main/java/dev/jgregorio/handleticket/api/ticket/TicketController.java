@@ -1,8 +1,7 @@
-package dev.jgregorio.handleticket.api.ticket.controller;
+package dev.jgregorio.handleticket.api.ticket;
 
 import com.google.cloud.vision.v1.EntityAnnotation;
 import dev.jgregorio.handleticket.api.ticket.model.NormalizedText;
-import dev.jgregorio.handleticket.api.ticket.service.GoogleVisionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,10 +14,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/tickets")
-public class TicketsController {
+@RequestMapping("/v1/api/tickets")
+public class TicketController {
 
-    Logger logger = LoggerFactory.getLogger(TicketsController.class);
+    Logger logger = LoggerFactory.getLogger(TicketController.class);
 
     @GetMapping(produces = {"application/json"})
     public ResponseEntity<String> get() {
@@ -27,13 +26,15 @@ public class TicketsController {
 
     @PostMapping(produces = "application/json")
     public ResponseEntity<List<NormalizedText>> handleFileUpload(@RequestParam("file") MultipartFile file) {
-        List<NormalizedText> texts = null;
+        ResponseEntity response = null;
         try {
             List<EntityAnnotation> annotations = GoogleVisionService.getAnnotations(file.getInputStream());
-            texts = annotations.stream().map(annotation -> new NormalizedText(annotation)).collect(Collectors.toList());
+            List<NormalizedText> texts = annotations.stream().map(annotation -> new NormalizedText(annotation)).collect(Collectors.toList());
+            response = new ResponseEntity<>(texts, HttpStatus.OK);
         } catch (IOException e) {
             logger.error("GoogleVisionService failed", e);
+            response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(texts, HttpStatus.OK);
+        return response;
     }
 }
