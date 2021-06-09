@@ -1,4 +1,4 @@
-package dev.jgregorio.handleticket.api.controller;
+package dev.jgregorio.handleticket.api.ticket;
 
 import dev.jgregorio.handleticket.api.ticket.model.grid.Grid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TicketsControllerTest {
+public class TicketControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

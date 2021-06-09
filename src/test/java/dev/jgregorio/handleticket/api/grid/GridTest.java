@@ -1,7 +1,7 @@
 package dev.jgregorio.handleticket.api.grid;
 
 import com.google.cloud.vision.v1.EntityAnnotation;
-import dev.jgregorio.handleticket.api.ticket.service.GoogleVisionService;
+import dev.jgregorio.handleticket.api.ticket.GoogleVisionService;
 import dev.jgregorio.handleticket.api.ticket.util.ResourceUtil;
 import dev.jgregorio.handleticket.api.ticket.model.grid.Grid;
 
