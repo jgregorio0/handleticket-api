@@ -4,5 +4,4 @@ COPY handleticket-api.jar app.jar
 COPY application.properties app.properties
 
 #RUN apk update && apk add bash && apk add nano
-
 ENTRYPOINT ["java","-jar","/app.jar", "--spring.config.location=/app.properties"]
