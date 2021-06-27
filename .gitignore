@@ -3,3 +3,4 @@ target
 hadleticket-api.iml
 .keys
 data
+/google-credentials.json

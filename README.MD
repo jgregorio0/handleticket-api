@@ -95,7 +95,75 @@ sudo docker-compose up
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=dev -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"
 ```
 
+- adding Google as environment variable with maven
+```
+<plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <environmentVariables>
+                        <GOOGLE_APPLICATION_CREDENTIALS>google-credentials.json</GOOGLE_APPLICATION_CREDENTIALS>
+                        <GOOGLE_CREDENTIALS>
+                            {
+                            "type": "service
+                            "project_id": "ocr
+                            "private_key_id": "ce
+                            "private_key": "--
+                            "client_email": "jgre
+                            "client_id": "1012
+                            "auth_uri": "http
+                            "token_uri": "htt
+                            "auth_provider_x509_c
+                            "client_x509_cert_url
+                            }
+                        </GOOGLE_CREDENTIALS>
+                    </environmentVariables>
+                </configuration>
+            </plugin> 
+```
+
 4. remote connect for debugging
 
 # Postgres Database
 spring.jpa.database=POSTGRESQL
+
+#Deploy to HEROKU
+1. Login
+```
+heroku login
+```
+
+2. Create app (db hobby-dev is created by default)
+```
+heroku create handleticket-api
+git push heroku master
+```
+
+3. Active imp profile
+```
+heroku config:set SPRING_PROFILES_ACTIVE="imp"
+```
+
+4. Active google API credentials
+```
+heroku buildpacks:set https://github.com/elishaterada/heroku-google-application-credentials-buildpack.git -a handleticket-api
+heroku config:set GOOGLE_APPLICATION_CREDENTIALS="google-credentials.json"
+heroku config:set GOOGLE_CREDENTIALS="{
+  "type": "service_
+  "project_id": "oc
+  "private_key_id":
+  "private_key": "-
+  "client_email": "
+  "client_id": "101
+  "auth_uri": "http
+  "token_uri": "htt
+  "auth_provider_x5
+  "client_x509_cert
+}"
+```
+
+4. Check logs
+```
+heroku logs --tail
+```
+
